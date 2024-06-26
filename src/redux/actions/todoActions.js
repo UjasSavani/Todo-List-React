@@ -1,6 +1,6 @@
 import { ADD_TODO, EDIT_TODO, REMOVE_TODO } from "./allActions"
 
-export const todoAddElement = () => {
+export const todoAddElement = (id, title) => {
     return {
         type: ADD_TODO,
         payload:{
@@ -9,7 +9,7 @@ export const todoAddElement = () => {
     }
 }
 
-export const todoRemoveElement = () => {
+export const todoRemoveElement = (id) => {
     return {
         type: REMOVE_TODO,
         payload:{
@@ -18,7 +18,7 @@ export const todoRemoveElement = () => {
     }
 }
 
-export const todoEditElement = () => {
+export const todoEditElement = (id, title) => {
     return {
         type: EDIT_TODO,
         payload:{

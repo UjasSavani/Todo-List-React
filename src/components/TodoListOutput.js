@@ -1,32 +1,45 @@
-import React, { useContext } from 'react';
-import { TodoContext } from './TodoListInput';
+import React from 'react';
+import { connect } from 'react-redux';
+import { todoRemoveElement } from '../redux/actions/todoActions';
 import "../css/TodoList.css";
 
-function TodoListOutput() {
-  const { taskList, setTaskList } = useContext(TodoContext);
-
-  function removeElement(id) {
-    const updatedTaskList = taskList.filter((task) => task.id !== id);
-    setTaskList(updatedTaskList);
-  }
-  
+function TodoListOutput({ data, deleteTodoTask }) {
   return (
     <div className="task-list">
-      {taskList && taskList.map((task) => (
+      {data.todoTaskList && data.todoTaskList.map((task) => (
         <div className="task-item" key={task.id}>
-          {task.title}
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              removeElement(task.id);
-            }}
-          >
-            Delete
-          </button>
+          <span>{task.title}</span>
+          <div>
+            <button
+              className="delete-button"
+              onClick={(e) => {
+                e.preventDefault();
+                deleteTodoTask(task.id);
+              }}
+            >
+              Delete
+            </button>
+            <button
+              className="edit-button"
+              onClick={(e) => {
+                e.preventDefault();
+              }}
+            >
+              Edit
+            </button>
+          </div>
         </div>
       ))}
     </div>
   );
 }
 
-export default TodoListOutput;
+const mapStateToProps = (state) => ({
+  data: state.todoReducer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  deleteTodoTask: (id) => dispatch(todoRemoveElement(id)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoListOutput);

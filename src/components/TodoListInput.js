@@ -1,53 +1,56 @@
-import React, { useState, createContext } from 'react';
-import TodoListOutput from './TodoListOutput.js';
+import React, { useState } from 'react';
 import "../css/TodoList.css";
+import { todoAddElement } from '../redux/actions/todoActions';
+import { v4 as uuidv4 } from 'uuid';
+import { connect } from 'react-redux';
 
-export const TodoContext = createContext();
-
-const TodoListInput = () => {
-  const [task, setTask] = useState('');
-  const [taskList, setTaskList] = useState([]);
-  const [counter, setCounter] = useState(0);
+const TodoListInput = ({ dataFromStore, addTodoAction }) => {
+  const [data, setData] = useState({ id: '', title: '' });
 
   return (
-    <TodoContext.Provider value={{ taskList, setTaskList }}>
-      <div className="container">
-        <h1>Todo List</h1>
-        <div className="input-container">
-          <input
-            type="text"
-            placeholder="Enter your task here"
-            value={task}
-            onChange={(e) => {
-              e.preventDefault();
-              setTask(e.target.value);
-            }}
-          />
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              if(task){
-                setTaskList([...taskList, { id: counter, title: task }]);
-                setCounter(counter + 1);
-                setTask('');
-              }
-            }}
-          >
-            Add
-          </button>
-          <button
-            onClick={(e) => {
-              e.preventDefault();
-              setTask('');
-            }}
-          >
-            Clear
-          </button>
-        </div>
-        <TodoListOutput />
+    <div className="container">
+      <h1>Todo List</h1>
+      <div className="input-container">
+        <input
+          type="text"
+          placeholder="Enter your task here"
+          value={data.title}
+          onChange={(e) => {
+            e.preventDefault();
+            setData({ id: uuidv4(), title: e.target.value });
+          }}
+        />
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            if (data.title) {
+              addTodoAction(data.id, data.title);
+              setData({ id: '', title: '' });
+            }
+          }}
+        >
+          Add
+        </button>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            setData({ ...data, title: '' });
+            console.log(dataFromStore.todoTaskList);
+          }}
+        >
+          Clear
+        </button>
       </div>
-    </TodoContext.Provider>
+    </div>
   );
 };
 
-export default TodoListInput;
+const mapStateToProps = (state) => ({
+  dataFromStore: state.todoReducer,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  addTodoAction: (id, title) => dispatch(todoAddElement(id, title)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoListInput);

@@ -1,27 +1,39 @@
 import { ADD_TODO, EDIT_TODO, REMOVE_TODO } from "../actions/allActions"
 
-const initialState = []
+const initialState = {
+    todoTaskList: [],
+    editFlag: 0,
+    editableData: {},
+    currentTask: ``
+}
 export const todoReducer = (state = initialState, action) => {
     switch(action.type){
         case ADD_TODO: {
-            return [...state, action.payload]
+            console.log("in add todo action");
+            return {
+                ...state,
+                todoTaskList: [...state.todoTaskList, action.payload]
+            }
         }
 
         case REMOVE_TODO: {
-            const supportTodo = state.filter((value) => {
+            const supportTodo = state.todoTaskList.filter((value) => {
                 return value.id !== action.payload.id
             })
 
-            return supportTodo
+            return {...state, todoTaskList: supportTodo}
         }
 
         case EDIT_TODO: {
-            const supportTodo = state.map((value) => {
+            const supportTodo = state.todoTaskList.map((value) => {
                 if(value.id === action.payload.id) return {...value, title: action.payload.title}
                 else return value
             })
 
-            return supportTodo
+            return {...state, supportTodo }
         }
+
+        default:
+            return state;
     }
 }
