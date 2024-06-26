@@ -9,7 +9,7 @@ function TodoListOutput() {
     const updatedTaskList = taskList.filter((task) => task.id !== id);
     setTaskList(updatedTaskList);
   }
-   xyz
+  
   return (
     <div className="task-list">
       {taskList && taskList.map((task) => (
