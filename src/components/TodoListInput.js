@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import "../css/TodoList.css";
-import { todoAddElement } from '../redux/actions/todoActions';
+import { todoAddElement, todoCurrentTaskElement, todoEditElement, todoFlagElement } from '../redux/actions/todoActions';
 import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
 
-const TodoListInput = ({ dataFromStore, addTodoAction }) => {
+const TodoListInput = ({ dataFromStore, addTodoAction, setCurrentTask, updateTodoElement, editFlagTask }) => {
   const [data, setData] = useState({ id: '', title: '' });
 
   return (
@@ -14,32 +14,46 @@ const TodoListInput = ({ dataFromStore, addTodoAction }) => {
         <input
           type="text"
           placeholder="Enter your task here"
-          value={data.title}
+          value={dataFromStore.currentTask}
           onChange={(e) => {
             e.preventDefault();
-            setData({ id: uuidv4(), title: e.target.value });
+            setCurrentTask(e.target.value)
+            setData({ ...data, id: uuidv4() });
           }}
         />
-        <button
+
+        {(dataFromStore.editFlag === 0) ? <button
           onClick={(e) => {
             e.preventDefault();
-            if (data.title) {
-              addTodoAction(data.id, data.title);
-              setData({ id: '', title: '' });
+            if (dataFromStore.currentTask) {
+              addTodoAction(data.id, dataFromStore.currentTask);
+              setCurrentTask(``)
             }
           }}
         >
           Add
-        </button>
+        </button> : <button
+          onClick={(e) => {
+            e.preventDefault();
+              if(dataFromStore.currentTask.length !== 0){
+                updateTodoElement(dataFromStore.editableData.id, dataFromStore.currentTask)
+              }
+          }}
+        >
+          Update
+        </button>}
+
         <button
           onClick={(e) => {
             e.preventDefault();
-            setData({ ...data, title: '' });
-            console.log(dataFromStore.todoTaskList);
+
+            editFlagTask(0, {id: ``, title: ``})
+            setCurrentTask(``)
           }}
         >
-          Clear
+          Cancel
         </button>
+
       </div>
     </div>
   );
@@ -50,7 +64,10 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  addTodoAction: (id, title) => dispatch(todoAddElement(id, title)),
+  addTodoAction: (id, title) => (dispatch(todoAddElement(id, title))),
+  setCurrentTask: (task) => (dispatch(todoCurrentTaskElement(task))),
+  updateTodoElement: (id, title) => (dispatch(todoEditElement(id, title))),
+  editFlagTask: (flag, todo) => (dispatch(todoFlagElement(flag, todo)))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TodoListInput);

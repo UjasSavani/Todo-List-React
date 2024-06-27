@@ -1,4 +1,4 @@
-import { ADD_TODO, EDIT_TODO, REMOVE_TODO } from "./allActions"
+import { ADD_TODO, CURRENT_TASK, EDIT_TODO, REMOVE_TODO, TODO_FLAG } from "./allActions"
 
 export const todoAddElement = (id, title) => {
     return {
@@ -23,6 +23,25 @@ export const todoEditElement = (id, title) => {
         type: EDIT_TODO,
         payload:{
             id,title
+        }
+    }
+}
+
+export const todoFlagElement = (flag, todo) => {
+    return {
+        type: TODO_FLAG,
+        payload: {
+            flag,
+            todo
+        }
+    }
+}
+
+export const todoCurrentTaskElement = (task) => {
+    return {
+        type: CURRENT_TASK,
+        payload: {
+            task
         }
     }
 }

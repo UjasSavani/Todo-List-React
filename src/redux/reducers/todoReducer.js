@@ -1,4 +1,4 @@
-import { ADD_TODO, EDIT_TODO, REMOVE_TODO } from "../actions/allActions"
+import { ADD_TODO, CURRENT_TASK, EDIT_TODO, REMOVE_TODO, TODO_FLAG } from "../actions/allActions"
 
 const initialState = {
     todoTaskList: [],
@@ -25,14 +25,29 @@ export const todoReducer = (state = initialState, action) => {
         }
 
         case EDIT_TODO: {
+            console.log("in edit todo reducer ", action.payload.title);
             const supportTodo = state.todoTaskList.map((value) => {
                 if(value.id === action.payload.id) return {...value, title: action.payload.title}
                 else return value
             })
 
-            return {...state, supportTodo }
+            return {todoTaskList: supportTodo, editFlag: 0, currentTask: ``, editableData: {} }
         }
 
+        case TODO_FLAG: {
+            return {
+                ...state,
+                editFlag: action.payload.flag,
+                editableData: action.payload.todo
+            }
+        }
+
+        case CURRENT_TASK: {
+            return {
+                ...state,
+                currentTask: action.payload.task
+            }
+        }
         default:
             return state;
     }
