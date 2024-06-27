@@ -1,15 +1,14 @@
 import './App.css';
+import './css/TodoList.css'
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import TodoListInput from './components/TodoListInput.js';
-import TodoListOutput from './components/TodoListOutput.js';
+import Navigations from './Navigation/Navigations.js';
 
 function App() {
   return (
     <>
       <Provider store={store}>
-        <TodoListInput />
-        <TodoListOutput />
+        <Navigations />
       </Provider>
     </>
   );

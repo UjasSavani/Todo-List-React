@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { todoCurrentTaskElement, todoFlagElement, todoRemoveElement } from '../redux/actions/todoActions';
-import "../css/TodoList.css";
 
 function TodoListOutput({ data, deleteTodoTask, todoEditFlagTask, setCurrentTask }) {
   return (

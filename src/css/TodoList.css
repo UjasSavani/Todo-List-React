@@ -2,6 +2,7 @@
 .container {
   width: 50%;
   margin: 0 auto;
+  margin-top: 10vh;
   text-align: center;
 }
 
@@ -41,7 +42,7 @@ button:hover {
 }
 
 .task-list {
-  width: 60%;
+  width: 90%;
   margin: 0 auto;
 }
 
@@ -85,4 +86,65 @@ button:hover {
 
 .task-item button.edit-button:hover {
   background-color: #e0a800;
+}
+
+
+/* mock api css */
+.head{
+  position: fixed;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: black;
+  background-color: rgb(205, 203, 203);
+  width: 100vw;
+  height: 10vh;
+  margin-top: 0px;
+  gap: 5vw;
+  font-size: 3vh;
+}
+
+.lnk{
+  text-decoration: none;
+  color: black;
+}
+
+.data-container{
+  margin-top: 5vh;
+  display: grid;
+  grid: auto /auto auto auto ;
+  grid-gap: 10px;
+  padding: 10px;
+  margin-top: 10vh;
+}
+
+.card{
+  border: 2px solid black;
+  border-radius: 4vh;
+  background-color: rgb(212, 209, 209);
+  color: black;
+}
+
+.card p{
+  margin-left: 2vw;
+}
+.card-image{
+  display: flex;
+  justify-content: center;
+}
+
+/* single card css */
+
+.single-card{
+  border: 2px solid black;
+  border-radius: 4vh;
+  background-color: rgb(212, 209, 209);
+  color: black;
+  margin-top: 15vh;
+  width: 30vw;
+}
+
+.single-card p{
+  margin-left: 4vw;
 }

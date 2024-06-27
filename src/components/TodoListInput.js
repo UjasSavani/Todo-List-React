@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import "../css/TodoList.css";
 import { todoAddElement, todoCurrentTaskElement, todoEditElement, todoFlagElement } from '../redux/actions/todoActions';
 import { v4 as uuidv4 } from 'uuid';
 import { connect } from 'react-redux';
+import TodoListOutput from './TodoListOutput.js';
 
 const TodoListInput = ({ dataFromStore, addTodoAction, setCurrentTask, updateTodoElement, editFlagTask }) => {
   const [data, setData] = useState({ id: '', title: '' });
