@@ -3,6 +3,7 @@ import './css/TodoList.css'
 import { Provider } from 'react-redux';
 import store from './redux/store';
 import Navigations from './Navigation/Navigations.js';
+import DownlaodImage from './components/DownlaodImage.js';
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <Provider store={store}>
         <Navigations />
       </Provider>
+      {/* <DownlaodImage /> */}
     </>
   );
 }

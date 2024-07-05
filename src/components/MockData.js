@@ -1,7 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-function MockData({singleData}) { 
+function MockData({ singleData }) {
   return (
     <div className='single-card'>
       <div className='card-image'>
@@ -20,4 +20,4 @@ const mapStateToProps = (state) => ({
 const mapStateToDispatch = (dispatch) => ({
 
 })
-export default connect(mapStateToProps, mapStateToDispatch) (MockData)
+export default connect(mapStateToProps, mapStateToDispatch)(MockData)

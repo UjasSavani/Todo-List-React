@@ -1,4 +1,4 @@
-import { createStore } from "redux";
+import { legacy_createStore as createStore } from "redux";
 import { combineReducers } from "redux";
 import { todoReducer } from "./reducers/todoReducer";
 import { mockReducer } from "./reducers/mockReducer";
