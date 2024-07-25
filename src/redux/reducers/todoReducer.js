@@ -48,6 +48,7 @@ export const todoReducer = (state = initialState, action) => {
                 currentTask: action.payload.task
             }
         }
+        
         default:
             return state;
     }

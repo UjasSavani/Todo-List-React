@@ -37,7 +37,7 @@ function MockApiView({apiData, setApiData, setPerticularData}) {
                         navigator("/mock-data")
                     }}>
                         <div className='card-image'>
-                            <img src={value.avatar} />
+                            <img src={value.avatar} alt='photo of api url'/>
                         </div>
                         <p>Id : {value.id}</p>
                         <p>Name : {value.name}</p>
